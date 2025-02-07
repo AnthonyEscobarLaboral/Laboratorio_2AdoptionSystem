@@ -14,3 +14,8 @@ export const userAppointmentsValidator = [
     validarCampos,
     handleErrors
 ];
+
+export const cancelAppointmentValidator = [
+    validarCampos,
+    handleErrors
+]

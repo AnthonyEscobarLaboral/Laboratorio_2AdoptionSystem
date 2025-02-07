@@ -71,7 +71,7 @@ export const userAppointments = async (req, res) => {
   
           return res.status(200).json({
               success: true,
-              message: "citas del usuario obtenidas exitosamente",
+              message: "citas del usuario obtenidas",
               appointments
           })
   
@@ -82,4 +82,36 @@ export const userAppointments = async (req, res) => {
               error: err.message
           })
       }
+}
+
+export const cancelAppointment = async (req, res) => {
+  try {
+    const { aid } = req.params;
+
+    const appointmentExists = await Appointment.findById(aid);
+
+    if (!appointmentExists) {
+      return res.status(404).json({
+        success: false,
+        msg: "ID de cita no encontrada",
+      });
+    }
+
+    appointmentExists.status = 'CANCELLED';
+    await appointmentExists.save();
+
+    return res.status(200).json({
+      success: true,
+      msg: "Cita cancelada con exito",
+      appointmentExists,
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      msg: "Error para cancelar la cita",
+      error,
+    });
+  }
 }
