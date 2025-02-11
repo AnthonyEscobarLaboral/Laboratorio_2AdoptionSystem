@@ -1,7 +1,10 @@
 import { hash,verify} from "argon2";
 import User from "./user.model.js"
 import fs from "fs/promises";
-import { join } from "path";
+import { join,dirname } from "path";
+import {fileURLToPath} from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const getUserById = async (req, res) => {
     try{
@@ -134,24 +137,32 @@ export const updateUser = async (req, res) => {
 export const updateProfilePicture = async (req, res) => {
     try{
         const { uid } = req.params
-        const data = req.body;
         let newProfilePicture = req.file ? req.file.filename : null;
 
         const user = await User.findById(uid)
 
-        if (user.profilePicture) {
-            try {
-                await fs.unlink(user.profilePicture);
-            } catch (unlinkErr) {
-                console.log(`Error deleting file: ${unlinkErr}`);
+            if (!newProfilePicture) {
+                return res.status(404).json({
+                    success: false,
+                    msg: 'No se envio ningun archivo',
+                    error: err.message
+                });
             }
-        }
 
-            data.profilePicture = newProfilePicture;
+            if (user.profilePicture) {
+                const oldPicture = join(__dirname,"../../public/uploads/profile-pictures".user.profilePicture)
+                await fs.unlink(oldPicture);
+
+            }
+
             user.profilePicture = newProfilePicture;
-
-            await user.save(data,user)
-            console.log('foto de perfil guardada exitosamente');
+            await user.save(user)
+            
+           return res.status(200).json({
+                success: false,
+                msg: 'foto actualizada',
+                error: err.message
+            });
 
     }catch (err) {
         res.status(500).json({

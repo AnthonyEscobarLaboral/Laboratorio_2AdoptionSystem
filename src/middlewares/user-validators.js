@@ -63,6 +63,7 @@ export const updateProfilePictureValidator = [
     param("uid", "No es un ID válido").isMongoId(),
     param("uid").custom(userExists),
     validarCampos,
+    deleteFileOnError,
     handleErrors
 ]
 
