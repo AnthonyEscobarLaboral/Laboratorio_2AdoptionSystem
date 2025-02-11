@@ -14,6 +14,39 @@ JWT_SECRET=<tu_secreto_jwt>
 
 ## Endpoints de la API
 
+### Funcionalidades Adicionales
+
+1. **Actualizar Foto del Usuario**
+    - **URL:** `/adoptionSystem/v1/appointment/updateProfilePicture/:uid`
+    - **Método:** `POST`
+    - **Cuerpo:**
+      ```json
+      {
+        "profilePicture": "file"
+      }
+      ```
+2. **Listar Citas por usuario**
+    - **URL:** `/adoptionSystem/v1/appointment/userAppointments/:uid`
+    - **Método:** `GET`
+
+3. **Actualizar Cita**
+    - **URL:** `/adoptionSystem/v1/appointment/updateAppointment/:aid`
+    - **Método:** `PUT`
+    - **Cuerpo:**
+      ```json
+      {
+        "date": "2023-10-15T10:00:00Z",
+        "status": "string",
+        "pet": "string",
+        "user": "string"
+      }
+      ```
+
+4. **Cancelar Cita**
+    - **URL:** `/adoptionSystem/v1/appointment/cancelAppointment/:aid`
+    - **Método:** `DELETE`
+
+
 ### Autenticación
 
 - **Registrar Usuario**
@@ -120,22 +153,3 @@ JWT_SECRET=<tu_secreto_jwt>
       "user": "string"
     }
     ```
-
-## Funcionalidades Adicionales
-
-Las siguientes funcionalidades necesitan ser desarrolladas:
-
-1. **Actualizar Foto del Usuario**
-   - Descripción: Implementar funcionalidad para actualizar la foto de perfil del usuario.
-
-2. **Listar Citas**
-   - Descripción: Implementar funcionalidad para listar todas las citas de un usuario.
-
-3. **Actualizar Cita**
-   - Descripción: Implementar funcionalidad para actualizar una cita existente.
-
-4. **Cancelar Cita**
-   - Descripción: Implementar funcionalidad para cancelar una cita existente.
-
-5. **Entrega**
-   - Funcionalidades deben ser parte del código fuente y ser entregadas en tiempo y forma indicada en clase.
